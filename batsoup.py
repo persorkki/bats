@@ -24,11 +24,11 @@ def run():
 			nline = path.replace(remote, local).strip("\n")
 			line_stripped = path.strip("\n")
 
-			s = f'{line_start}\n  "{os.path.join(nline, filename)}"\n  "{line_stripped}"\n  {line_end}\n'
-			s2 = f'{line_start}\n  "{os.path.join(line_stripped, filename)}"\n  "{nline}"\n  {line_end}\n'
+			line1 = f'{line_start} "{os.path.join(nline, filename)}" "{line_stripped}" {line_end}\n'
+			line2 = f'{line_start} "{os.path.join(line_stripped, filename)}" "{nline}" {line_end}\n\n'
 
-			batch.append(s)
-			batch.append(s2)
+			batch.append(line1)
+			batch.append(line2)
 
 	write_batchfile(batch, bat_name)
 
