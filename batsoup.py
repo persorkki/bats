@@ -17,18 +17,19 @@ def run():
 	batch = []
 	with open(filelist, 'r') as file:
 		for line in file.readlines():
-			(path, filename) = line.rsplit("\\", 1)
+			if not line.startswith('\n'):
+				(path, filename) = line.rsplit("\\", 1)
 
-			#poistetaan rivinvaihdot
-			filename = filename.strip("\n")
-			nline = path.replace(remote, local).strip("\n")
-			line_stripped = path.strip("\n")
+				#poistetaan rivinvaihdot
+				filename = filename.strip("\n")
+				nline = path.replace(remote, local).strip("\n")
+				line_stripped = path.strip("\n")
 
-			line1 = f'{line_start} "{os.path.join(nline, filename)}" "{line_stripped}" {line_end}\n'
-			line2 = f'{line_start} "{os.path.join(line_stripped, filename)}" "{nline}" {line_end}\n\n'
+				line1 = f'{line_start} "{os.path.join(nline, filename)}" "{line_stripped}" {line_end}\n'
+				line2 = f'{line_start} "{os.path.join(line_stripped, filename)}" "{nline}" {line_end}\n\n'
 
-			batch.append(line1)
-			batch.append(line2)
+				batch.append(line1)
+				batch.append(line2)
 
 	write_batchfile(batch, bat_name)
 
