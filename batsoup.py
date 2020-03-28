@@ -15,6 +15,11 @@ def run():
 	bat_name   = config[project]['filename']
 	
 	batch = []
+
+	batch.append(f'@echo off\n')
+	batch.append(f'echo Tiedostoja kopioitu:\n')
+	batch.append(f'echo.\n') #tyhjä rivi
+
 	with open(filelist, 'r') as file:
 		for line in file.readlines():
 			(path, filename) = line.rsplit("\\", 1)
@@ -28,7 +33,13 @@ def run():
 			s2 = f'{line_start}\n  "{os.path.join(line_stripped, filename)}"\n  "{nline}"\n  {line_end}\n'
 
 			batch.append(s)
+			batch.append(f'echo Verkkolevylle:\n')
+			batch.append(f'echo.\n') #tyhjä rivi
+			batch.append(f'echo Koneelle:\n')
 			batch.append(s2)
+			batch.append(f'echo.\n') #tyhjä rivi
+
+	batch.append(f'pause') #jätä ikkuna auki
 
 	write_batchfile(batch, bat_name)
 
