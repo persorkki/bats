@@ -18,7 +18,7 @@ def run(line_start, line_end, remote, local, filelist, bat_filename):
 			target = source.replace(remote, local)
 
 			line1 = f'{line_start} "{os.path.join(target, filename)}" "{source}" {line_end}\n'
-			line2 = f'{line_start} "{os.path.join(source, filename)}" "{target}" {line_end}\n\n'
+			line2 = f'{line_start} "{os.path.join(source, filename)}" "{target}\\" {line_end}\n\n'
 
 			batch.append(f'echo Verkkolevylle:\n')
 			batch.append(line1)
