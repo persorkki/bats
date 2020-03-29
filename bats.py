@@ -43,11 +43,11 @@ if __name__ == "__main__":
 	parser.add_argument('-p', default='default', required=False)
 	args = parser.parse_args()
 
-	if args.p and args.p in config:
-		print (f"found profile {args.p}")
+	if args.p in config:
+		print (f"using profile [{args.p}]")
 		profile = args.p
 	else:
-		print ("running default profile")
+		print ("unknown profile argument, using [default] profile instead")
 		profile = 'default'
 
 	line_start = config[profile]['line_start']
