@@ -1,5 +1,5 @@
 \\verkkolevy01\Projekti\Suun\Raksuun\suunnitelma.dgn
-
+#comment
 \\verkkolevy01\Projekti\Suun\Raksuun\suunnitelma2_1.dgn
 \\verkkolevy01\Projekti\Suun\Raksuun\suunnitelma2_2.dgn
 \\verkkolevy01\Projekti\Suun\Raksuun\suunnitelma2_3.dwg
