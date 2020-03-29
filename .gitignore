@@ -39,3 +39,4 @@ pip-delete-this-directory.txt
 
 # Project related stuff
 *.bat
+config.py

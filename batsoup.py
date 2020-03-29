@@ -25,13 +25,11 @@ def run():
 	
 	for line in lines:
 		if line.strip():
-			print (line.rsplit("\\", 1))
-			(path, filename) = line.rsplit("\\", 1)
+			(source, filename) = line.rsplit("\\", 1)
+			target = source.replace(remote, local)
 
-			path_replaced = path.replace(remote, local)
-
-			line1 = f'{line_start} "{os.path.join(path_replaced, filename)}" "{path}" {line_end}\n'
-			line2 = f'{line_start} "{os.path.join(path, filename)}" "{path_replaced}" {line_end}\n\n'
+			line1 = f'{line_start} "{os.path.join(target, filename)}" "{source}" {line_end}\n'
+			line2 = f'{line_start} "{os.path.join(source, filename)}" "{target}" {line_end}\n\n'
 
 			batch.append(f'echo Verkkolevylle:\n')
 			batch.append(line1)
@@ -41,7 +39,6 @@ def run():
 			batch.append(f'echo.\n') #tyhjä rivi
 
 	batch.append(f'pause') #jätä ikkuna auki
-
 	write_batchfile(batch, bat_name)
 
 def write_batchfile(batch, bat_filename):
