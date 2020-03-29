@@ -1,21 +1,10 @@
 #!/usr/bin/env python3
 import os
+import argparse
 import configparser
 
-def run():
-	config = configparser.ConfigParser()
-	config.read('config.ini')
-	project    = config['run']['profile']
-	
-	line_start = config[project]['line_start']
-	line_end   = config[project]['line_end']
-	remote     = config[project]['remote']
-	local      = config[project]['local']
-	filelist   = config[project]['filelist']
-	bat_name   = config[project]['filename']
-	
+def run(line_start, line_end, remote, local, filelist, bat_filename):
 	batch = []
-
 	batch.append(f'@echo off\n')
 	batch.append(f'echo Tiedostoja kopioitu:\n')
 	batch.append(f'echo.\n') #tyhjä rivi
@@ -25,13 +14,11 @@ def run():
 	
 	for line in lines:
 		if line.strip():
-			print (line.rsplit("\\", 1))
-			(path, filename) = line.rsplit("\\", 1)
+			(source, filename) = line.rsplit("\\", 1)
+			target = source.replace(remote, local)
 
-			path_replaced = path.replace(remote, local)
-
-			line1 = f'{line_start} "{os.path.join(path_replaced, filename)}" "{path}" {line_end}\n'
-			line2 = f'{line_start} "{os.path.join(path, filename)}" "{path_replaced}" {line_end}\n\n'
+			line1 = f'{line_start} "{os.path.join(target, filename)}" "{source}" {line_end}\n'
+			line2 = f'{line_start} "{os.path.join(source, filename)}" "{target}" {line_end}\n\n'
 
 			batch.append(f'echo Verkkolevylle:\n')
 			batch.append(line1)
@@ -41,8 +28,7 @@ def run():
 			batch.append(f'echo.\n') #tyhjä rivi
 
 	batch.append(f'pause') #jätä ikkuna auki
-
-	write_batchfile(batch, bat_name)
+	write_batchfile(batch, bat_filename)
 
 def write_batchfile(batch, bat_filename):
 	with open(bat_filename, 'w') as f:
@@ -50,4 +36,25 @@ def write_batchfile(batch, bat_filename):
 			f.write(item)
 
 if __name__ == "__main__":
-	run()
+	config = configparser.ConfigParser()
+	config.read('config.ini')
+	
+	parser = argparse.ArgumentParser(description='arguments for profile selection')
+	parser.add_argument('-p', default='default', required=False)
+	args = parser.parse_args()
+
+	if args.p and args.p in config:
+		print (f"found profile {args.p}")
+		profile = args.p
+	else:
+		print ("running default profile")
+		profile = 'default'
+
+	line_start = config[profile]['line_start']
+	line_end   = config[profile]['line_end']
+	remote     = config[profile]['remote']
+	local      = config[profile]['local']
+	filelist   = config[profile]['filelist']
+	bat_filename   = config[profile]['filename']
+
+	run(line_start, line_end, remote, local, filelist, bat_filename)
