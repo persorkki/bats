@@ -7,9 +7,9 @@ set the remote and local variables in *config.ini*<br>
 
 **default profile**
 ```bash
-batsoup.py
+bats.py
 ```
 **with profile**
 ```
-batsoup.py -p [profile]
+bats.py -p [profile]
 ``` 
