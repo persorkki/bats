@@ -22,20 +22,23 @@ def run():
 
 	with open(filelist, 'r') as file:
 		lines = map(lambda x: x.strip("\n"), file.readlines())
-		for line in lines:
-			if line.strip():
-				(path, filename) = line.rsplit("\\", 1)
-				path_replaced = path.replace(remote, local)
 	
-				line1 = f'{line_start} "{os.path.join(path_replaced, filename)}" "{path}" {line_end}\n'
-				line2 = f'{line_start} "{os.path.join(path, filename)}" "{path_replaced}" {line_end}\n\n'
+	for line in lines:
+		if line.strip():
+			print (line.rsplit("\\", 1))
+			(path, filename) = line.rsplit("\\", 1)
 
-				batch.append('echo Verkkolevylle:\n')
-				batch.append(line1)
-				batch.append(f'echo.\n') #tyhjä rivi
-				batch.append(f'echo Koneelle:\n')
-				batch.append(line2)
-				batch.append(f'echo.\n') #tyhjä rivi
+			path_replaced = path.replace(remote, local)
+
+			line1 = f'{line_start} "{os.path.join(path_replaced, filename)}" "{path}" {line_end}\n'
+			line2 = f'{line_start} "{os.path.join(path, filename)}" "{path_replaced}" {line_end}\n\n'
+
+			batch.append(f'echo Verkkolevylle:\n')
+			batch.append(line1)
+			batch.append(f'echo.\n') #tyhjä rivi
+			batch.append(f'echo Koneelle:\n')
+			batch.append(line2)
+			batch.append(f'echo.\n') #tyhjä rivi
 
 	batch.append(f'pause') #jätä ikkuna auki
 

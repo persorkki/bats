@@ -9,4 +9,3 @@
 \\verkkolevy01\Projekti\suunnitelmatiedosto.dgn
 \\verkkolevy01\Projekti\referenssitiedosto1.dgn
 \\verkkolevy01\Projekti\referenssitiedosto2.dwg
-
