@@ -1,11 +1,8 @@
-\\verkkolevy01\Projekti\suunnitelmatiedosto.dgn
-\\verkkolevy01\Projekti\referenssitiedosto1.dgn
-\\verkkolevy01\Projekti\referenssitiedosto2.dwg
+\\verkkolevy01\Projekti\Suun\Raksuun\suunnitelma.dgn
 
-\\verkkolevy01\Projekti\suunnitelmatiedosto.dgn
-\\verkkolevy01\Projekti\referenssitiedosto1.dgn
-\\verkkolevy01\Projekti\referenssitiedosto2.dwg
+\\verkkolevy01\Projekti\Suun\Raksuun\suunnitelma2_1.dgn
+\\verkkolevy01\Projekti\Suun\Raksuun\suunnitelma2_2.dgn
+\\verkkolevy01\Projekti\Suun\Raksuun\suunnitelma2_3.dwg
 
-\\verkkolevy01\Projekti\suunnitelmatiedosto.dgn
-\\verkkolevy01\Projekti\referenssitiedosto1.dgn
-\\verkkolevy01\Projekti\referenssitiedosto2.dwg
+\\verkkolevy01\Projekti\Lahtotiedot\referenssi1.dgn
+\\verkkolevy01\Projekti\Lahtotiedot\referenssi2.dwg
