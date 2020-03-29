@@ -21,19 +21,16 @@ def run():
 	batch.append(f'echo.\n') #tyhjä rivi
 
 	with open(filelist, 'r') as file:
-		for line in file.readlines():
-			if not line.startswith('\n'):
+		lines = map(lambda x: x.strip("\n"), file.readlines())
+		for line in lines:
+			if line.strip():
 				(path, filename) = line.rsplit("\\", 1)
+				path_replaced = path.replace(remote, local)
+	
+				line1 = f'{line_start} "{os.path.join(path_replaced, filename)}" "{path}" {line_end}\n'
+				line2 = f'{line_start} "{os.path.join(path, filename)}" "{path_replaced}" {line_end}\n\n'
 
-				#poistetaan rivinvaihdot
-				filename = filename.strip("\n")
-				nline = path.replace(remote, local).strip("\n")
-				line_stripped = path.strip("\n")
-
-				line1 = f'{line_start} "{os.path.join(nline, filename)}" "{line_stripped}" {line_end}\n'
-				line2 = f'{line_start} "{os.path.join(line_stripped, filename)}" "{nline}" {line_end}\n\n'
-
-				batch.append(f'echo Verkkolevylle:\n')
+				batch.append('echo Verkkolevylle:\n')
 				batch.append(line1)
 				batch.append(f'echo.\n') #tyhjä rivi
 				batch.append(f'echo Koneelle:\n')
