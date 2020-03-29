@@ -13,7 +13,7 @@ def run(line_start, line_end, remote, local, filelist, bat_filename):
 		lines = map(lambda x: x.strip("\n"), file.readlines())
 	
 	for line in lines:
-		if line.strip():
+		if line.strip() and not line.startswith("#"):
 			(source, filename) = line.rsplit("\\", 1)
 			target = source.replace(remote, local)
 
