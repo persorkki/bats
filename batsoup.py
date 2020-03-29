@@ -1,19 +1,9 @@
 #!/usr/bin/env python3
 import os
-import configparser
 import argparse
+import configparser
 
-def run():
-	config = configparser.ConfigParser()
-	config.read('config.ini')
-	
-	line_start = config[profile]['line_start']
-	line_end   = config[profile]['line_end']
-	remote     = config[profile]['remote']
-	local      = config[profile]['local']
-	filelist   = config[profile]['filelist']
-	bat_name   = config[profile]['filename']
-	
+def run(line_start, line_end, remote, local, filelist, bat_filename):
 	batch = []
 
 	batch.append(f'@echo off\n')
@@ -40,7 +30,7 @@ def run():
 			batch.append(f'echo.\n') #tyhjä rivi
 
 	batch.append(f'pause') #jätä ikkuna auki
-	write_batchfile(batch, bat_name)
+	write_batchfile(batch, bat_filename)
 
 def write_batchfile(batch, bat_filename):
 	with open(bat_filename, 'w') as f:
@@ -48,11 +38,22 @@ def write_batchfile(batch, bat_filename):
 			f.write(item)
 
 if __name__ == "__main__":
+	config = configparser.ConfigParser()
+	config.read('config.ini')
+	
 	parser = argparse.ArgumentParser(description='arguments for profile selection')
-	parser.add_argument('profile')
+	parser.add_argument('-p', default='default', required=False)
 	args = parser.parse_args()
-	if args.profile in :
-		run(args.profile)
 
+	if args.p and config[args.p]:
+		profile = args.p
+	else:
+		profile = 'default'
 
-	run()
+	line_start = config[profile]['line_start']
+	line_end   = config[profile]['line_end']
+	remote     = config[profile]['remote']
+	local      = config[profile]['local']
+	filelist   = config[profile]['filelist']
+	bat_filename   = config[profile]['filename']
+	run(line_start, line_end, remote, local, filelist, bat_filename)
