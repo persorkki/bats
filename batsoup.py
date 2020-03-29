@@ -21,8 +21,9 @@ def run():
 	batch.append(f'echo.\n') #tyhjä rivi
 
 	with open(filelist, 'r') as file:
-		for line in file.readlines():
-			if not line.startswith('\n'):
+		lines = file.readlines()
+		for line in lines:
+			if line.strip():
 				(path, filename) = line.rsplit("\\", 1)
 
 				#poistetaan rivinvaihdot
