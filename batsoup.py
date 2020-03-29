@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 import os
 import configparser
+import argparse
 
 def run():
 	config = configparser.ConfigParser()
 	config.read('config.ini')
-	project    = config['run']['profile']
 	
-	line_start = config[project]['line_start']
-	line_end   = config[project]['line_end']
-	remote     = config[project]['remote']
-	local      = config[project]['local']
-	filelist   = config[project]['filelist']
-	bat_name   = config[project]['filename']
+	line_start = config[profile]['line_start']
+	line_end   = config[profile]['line_end']
+	remote     = config[profile]['remote']
+	local      = config[profile]['local']
+	filelist   = config[profile]['filelist']
+	bat_name   = config[profile]['filename']
 	
 	batch = []
 
@@ -26,6 +26,7 @@ def run():
 	for line in lines:
 		if line.strip():
 			(source, filename) = line.rsplit("\\", 1)
+			
 			target = source.replace(remote, local)
 
 			line1 = f'{line_start} "{os.path.join(target, filename)}" "{source}" {line_end}\n'
@@ -47,4 +48,11 @@ def write_batchfile(batch, bat_filename):
 			f.write(item)
 
 if __name__ == "__main__":
+	parser = argparse.ArgumentParser(description='arguments for profile selection')
+	parser.add_argument('profile')
+	args = parser.parse_args()
+	if args.profile in :
+		run(args.profile)
+
+
 	run()
