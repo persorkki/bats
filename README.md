@@ -7,11 +7,11 @@ utility tool for creating xcopy batch files
 3. run *bats.py*
 4. run *soup.bat*
 
-**default profile**
+**run default profile**
 ```bash
 bats.py
 ```
-**with profile**
+**run with profile**
 ```
 bats.py -p [profile]
 ``` 
