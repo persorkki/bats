@@ -10,22 +10,21 @@ def run(line_start, line_end, remote, local, filelist, bat_filename):
 	batch.append(f'echo.\n') #newline
 
 	with open(filelist, 'r') as file:
-		lines = map(lambda x: x.strip("\n"), file.readlines())
-	
-	for line in lines:
-		if line.strip() and not line.startswith("#"):
-			(source, filename) = line.rsplit("\\", 1)
-			target = source.replace(remote, local)
+		lines = [x.strip("\n") for x in file.readlines()]
 
-			line1 = f'{line_start} "{os.path.join(target, filename)}" "{source}" {line_end}\n'
-			line2 = f'{line_start} "{os.path.join(source, filename)}" "{target}\\" {line_end}\n\n'
+	for line in [x for x in lines if x.strip() and not x.startswith("#")]:
+		(source, filename) = line.rsplit("\\", 1)
+		target = source.replace(remote, local)
 
-			batch.append(f'echo To network drive:\n')
-			batch.append(line1)
-			batch.append(f'echo.\n') #newline
-			batch.append(f'echo To local drive:\n')
-			batch.append(line2)
-			batch.append(f'echo.\n') #newline
+		line1 = f'{line_start} "{os.path.join(target, filename)}" "{source}" {line_end}\n'
+		line2 = f'{line_start} "{os.path.join(source, filename)}" "{target}\\" {line_end}\n\n'
+
+		batch.append(f'echo To network drive:\n')
+		batch.append(line1)
+		batch.append(f'echo.\n') #newline
+		batch.append(f'echo To local drive:\n')
+		batch.append(line2)
+		batch.append(f'echo.\n') #newline
 
 	batch.append(f'pause') #leave window open after finish
 	write_batchfile(batch, bat_filename)
