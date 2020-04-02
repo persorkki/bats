@@ -6,8 +6,8 @@ import configparser
 def run(line_start, line_end, remote, local, filelist, bat_filename):
 	batch = []
 	batch.append(f'@echo off\n')
-	batch.append(f'echo Tiedostoja kopioitu:\n')
-	batch.append(f'echo.\n') #tyhjä rivi
+	batch.append(f'echo Files copied:\n')
+	batch.append(f'echo.\n') #newline
 
 	with open(filelist, 'r') as file:
 		lines = map(lambda x: x.strip("\n"), file.readlines())
@@ -20,14 +20,14 @@ def run(line_start, line_end, remote, local, filelist, bat_filename):
 			line1 = f'{line_start} "{os.path.join(target, filename)}" "{source}" {line_end}\n'
 			line2 = f'{line_start} "{os.path.join(source, filename)}" "{target}\\" {line_end}\n\n'
 
-			batch.append(f'echo Verkkolevylle:\n')
+			batch.append(f'echo To network drive:\n')
 			batch.append(line1)
-			batch.append(f'echo.\n') #tyhjä rivi
-			batch.append(f'echo Koneelle:\n')
+			batch.append(f'echo.\n') #newline
+			batch.append(f'echo To local drive:\n')
 			batch.append(line2)
-			batch.append(f'echo.\n') #tyhjä rivi
+			batch.append(f'echo.\n') #newline
 
-	batch.append(f'pause') #jätä ikkuna auki
+	batch.append(f'pause') #leave window open after finish
 	write_batchfile(batch, bat_filename)
 
 def write_batchfile(batch, bat_filename):
